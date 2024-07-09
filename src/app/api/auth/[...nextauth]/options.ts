@@ -5,6 +5,7 @@ import dbConnect from "@/lib/dbConnect"
 import UserModel from "@/models/User"
 
 export const authOptions: NextAuthOptions = {
+    secret:'123456sdfghjertydfghheertyuio8765re',
     providers: [
         CredentialsProvider({
             id: 'credentials',
@@ -22,6 +23,7 @@ export const authOptions: NextAuthOptions = {
                             { username: credentials.identifier },
                         ]
                     });
+                    console.log('user auth',user);
                     if (!user) {
                         throw new Error('No user found with this email');
                     }
@@ -38,6 +40,7 @@ export const authOptions: NextAuthOptions = {
                     }
 
                 } catch (error: any) {
+                    console.log('session errorrr')
                     throw new Error(error);
                 }
             }
@@ -51,6 +54,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.isAcceptingMessages = token.isAcceptingMessages;
                 session.user.username = token.username;
             }
+            console.log('session:',session);
             return session
         },
         async jwt({ token, user}) {
@@ -66,7 +70,6 @@ export const authOptions: NextAuthOptions = {
     session:{
         strategy:'jwt'
     },
-    secret:process.env.NEXTAUTH_SECRET,
     pages:{
         signIn:'/sign-in'
     }

@@ -16,6 +16,7 @@ interface VerificationEmailProps {
 }
 
 export default function VerificationEmail({ username, otp }: VerificationEmailProps) {
+  console.log(otp);
   return (
     <Html lang="en" dir="ltr">
       <Head>
